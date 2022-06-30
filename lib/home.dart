@@ -15,8 +15,13 @@ class HomePage extends StatelessWidget {
               if(!snapshot.hasData){
                 return const LoginPage();
               }else{
-                return Center(child: Column(children: [
-                  Text("${snapshot.data.displayName}님 환영합니다.")
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: 100,),
+                  Text("${snapshot.data.displayName}님 환영합니다.", style: TextStyle(
+                    fontSize: 20
+                  ),)
                 ],
                 ),
                 );
