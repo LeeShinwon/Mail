@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          ElevatedButton(onPressed: signInWithGoogle, child: Text("google login"))
+          ElevatedButton(onPressed: signInWithGoogle, child: Text("G-mail"))
         ],
       ),
     );
