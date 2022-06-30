@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'login.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,15 +13,10 @@ class HomePage extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (BuildContext context, AsyncSnapshot snapshot){
               if(!snapshot.hasData){
-                return const Login();
+                return const LoginPage();
               }else{
                 return Center(child: Column(children: [
-                  Text("${snapshot.data.displayName}님 환영합니다."),
-                  ElevatedButton( child: Text("signout"),
-                    onPressed: (){
-                    FirebaseAuth.instance.signOut();
-                  },
-                  )
+                  Text("${snapshot.data.displayName}님 환영합니다.")
                 ],
                 ),
                 );
