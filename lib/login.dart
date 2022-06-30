@@ -84,65 +84,56 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 35),
             ),
             SizedBox(
-              height: 200//getScreenHeight(context) * 0.14,
+              height: 150//getScreenHeight(context) * 0.14,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                final UserCredential userCredential = await signInWithGoogle();
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: ElevatedButton(
+                onPressed: () async {
+                  final UserCredential userCredential = await signInWithGoogle();
 
-                User? user = userCredential.user;
+                  User? user = userCredential.user;
 
-                if (user != null) {
-                  int i;
-                  querySnapshot = await database.get();
+                  if (user != null) {
+                    int i;
+                    querySnapshot = await database.get();
 
-                  for (i = 0; i < querySnapshot.docs.length; i++) {
-                    var a = querySnapshot.docs[i];
+                    for (i = 0; i < querySnapshot.docs.length; i++) {
+                      var a = querySnapshot.docs[i];
 
-                    if (a.get('uid') == user.uid) {
-                      break;
+                      if (a.get('uid') == user.uid) {
+                        break;
+                      }
                     }
-                  }
 
-                  if (i == (querySnapshot.docs.length)) {
-                    database.doc(user.uid).set({
-                      'email': user.email.toString(),
-                      'name': user.displayName.toString(),
-                      'uid': user.uid,
-                    });
+                    if (i == (querySnapshot.docs.length)) {
+                      database.doc(user.uid).set({
+                        'email': user.email.toString(),
+                        'name': user.displayName.toString(),
+                        'uid': user.uid,
+                      });
+                    }
+                    if (user != null)
+                      Get.to(CheckAuth());
                   }
-                  if (user != null)
-                    Get.to(CheckAuth());
-                }
-              },
-              child: Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset('assets/image/google_logo.PNG'),),
-                  SizedBox(
-                    width: 50,
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image.network('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'),
                   ),
-                  Text(
-                    '구글 로그인',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Color(0xff000000),
+                ),
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(
+                      80, 60
+                        //getScreenWidth(context)*0.88, getScreenHeight(context)*0.1
                     ),
-                  ),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size(
-                    80, 30
-                      //getScreenWidth(context)*0.88, getScreenHeight(context)*0.1
-                  ),
-                  primary: Color(0xFFffffff),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  elevation: 10
+                    primary: Color(0xFFffffff),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    elevation: 10
+                ),
               ),
             ),
           ],
