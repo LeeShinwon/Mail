@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 import 'login.dart';
 
@@ -54,18 +56,17 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10,),
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(10),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  _mainButton(
-                                      Icons.mark_email_unread_outlined, "받은 편지함"),
+                                  _mainButton(CupertinoIcons.tray , "받은 편지함"),
                                   Divider(),
-                                  _mainButton(Icons.star, "VIP"),
+                                  _mainButton(CupertinoIcons.star, "VIP"),
                                   Divider(),
-                                  _mainButton(Icons.flag, "깃발 표시됨"),
+                                  _mainButton(CupertinoIcons.flag, "깃발 표시됨"),
                                 ],
                               ),
                             ),
@@ -87,21 +88,23 @@ class HomePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10,),
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(10),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  _mainButton(Icons.description, "임시 저장"),
+                                  _mainButton(CupertinoIcons.doc, "임시 저장"),
                                   Divider(),
-                                  _mainButton(Icons.send, "보낸 편지함"),
+                                  _mainButton(CupertinoIcons.paperplane, "보낸 편지함"),
                                   Divider(),
-                                  _mainButton(Icons.not_interested, "정크"),
+                                  _mainButton(CupertinoIcons.bin_xmark, "정크"),
                                   Divider(),
-                                  _mainButton(Icons.delete_outline, "휴지통"),
+                                  _mainButton(CupertinoIcons.delete, "휴지통"),
                                   Divider(),
-                                  _mainButton(Icons.content_paste, "모든 메일"),
+                                  _mainButton(CupertinoIcons.archivebox, "모든 메일"),
+                                  Divider(),
+                                  _mainButton(CupertinoIcons.folder, "별표 편지함"),
                                 ],
                               ),
                             ),
@@ -112,7 +115,7 @@ class HomePage extends StatelessWidget {
                           // )
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [Icon(Icons.mark_email_unread_outlined, size: 30, color: Colors.blueAccent,)],),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [Icon(CupertinoIcons.square_pencil, size: 30, color: Colors.blueAccent,)],),
                           )
                         ],
                       ),
@@ -133,7 +136,7 @@ class HomePage extends StatelessWidget {
         children: [
         Row(
           children: [
-            Icon(icon, size: 30, color: Colors.lightBlue,),
+            Icon(icon, size: 30, color: Colors.blueAccent,),
             SizedBox(
               width: 15,
             ),
