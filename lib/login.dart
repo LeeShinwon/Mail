@@ -1,56 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'home.dart';
-
-class CheckAuth extends StatefulWidget {
-  const CheckAuth({Key? key}) : super(key: key);
-
-  @override
-  State<CheckAuth> createState() => _CheckAuthState();
-}
-
-class _CheckAuthState extends State<CheckAuth> {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-        if(!snapshot.hasData){
-          return LoginPage();
-        }
-        else {
-          return HomePage();
-        }
-      },
-    );
-  }
-}
-
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-
-  CollectionReference database = FirebaseFirestore.instance.collection('user');
-  late QuerySnapshot querySnapshot;
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -62,92 +23,38 @@ class _LoginPageState extends State<LoginPage> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal:
-        10//getScreenWidth(context)*0.1
-        ),
-        decoration: BoxDecoration(
-          color: Color(0xFFEFEFEF),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
 
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100//getScreenHeight(context) * 0.15,
+        children: [
+          OutlinedButton(
+            onPressed: signInWithGoogle,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icon/google_logo_icon.png', width: 30,),
+                Text("  Start with Google",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),),
+
+              ],
             ),
-            Text(
-              "Mail",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 35),
-            ),
-            SizedBox(
-              height: 200//getScreenHeight(context) * 0.14,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                final UserCredential userCredential = await signInWithGoogle();
+            style: OutlinedButton.styleFrom(
 
-                User? user = userCredential.user;
-
-                if (user != null) {
-                  int i;
-                  querySnapshot = await database.get();
-
-                  for (i = 0; i < querySnapshot.docs.length; i++) {
-                    var a = querySnapshot.docs[i];
-
-                    if (a.get('uid') == user.uid) {
-                      break;
-                    }
-                  }
-
-                  if (i == (querySnapshot.docs.length)) {
-                    database.doc(user.uid).set({
-                      'email': user.email.toString(),
-                      'name': user.displayName.toString(),
-                      'uid': user.uid,
-                    });
-                  }
-                  if (user != null)
-                    Get.to(CheckAuth());
-                }
-              },
-              child: Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset('assets/image/google_logo.PNG'),),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  Text(
-                    '구글 로그인',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Color(0xff000000),
-                    ),
-                  ),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size(
-                    80, 30
-                      //getScreenWidth(context)*0.88, getScreenHeight(context)*0.1
-                  ),
-                  primary: Color(0xFFffffff),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  elevation: 10
-              ),
-            ),
-          ],
-        ),
+                padding: EdgeInsets.all(20),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                side: BorderSide(width: 3.0, color: Colors.black)
+            ),)
+        ],
       ),
     );
   }
 }
+
