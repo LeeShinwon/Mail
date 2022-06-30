@@ -27,8 +27,31 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+
         children: [
-          ElevatedButton(onPressed: signInWithGoogle, child: Text("google login"))
+          OutlinedButton(
+            onPressed: signInWithGoogle,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/icon/google_logo_icon.png', width: 30,),
+                Text("  Start with Google",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),),
+
+              ],
+            ),
+          style: OutlinedButton.styleFrom(
+
+            padding: EdgeInsets.all(20),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+              side: BorderSide(width: 3.0, color: Colors.black)
+          ),)
         ],
       ),
     );
