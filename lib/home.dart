@@ -34,6 +34,9 @@ class HomePage extends StatelessWidget {
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
+                              TextButton(onPressed: (){
+                                FirebaseAuth.instance.signOut();
+                              }, child: Text("signout"),),
                             ],
                           ),
                           Row(
