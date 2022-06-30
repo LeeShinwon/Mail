@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatelessWidget {
@@ -26,33 +27,35 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        margin: EdgeInsets.fromLTRB(20,0,20,0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: signInWithGoogle,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/icon/google_logo_icon.png', width: 30,),
+                  Text("  Start with Google",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),),
 
-        children: [
-          OutlinedButton(
-            onPressed: signInWithGoogle,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset('assets/icon/google_logo_icon.png', width: 30,),
-                Text("  Start with Google",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),),
+                ],
+              ),
+              style: OutlinedButton.styleFrom(
 
-              ],
-            ),
-            style: OutlinedButton.styleFrom(
-
-                padding: EdgeInsets.all(20),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                side: BorderSide(width: 3.0, color: Colors.black)
-            ),)
-        ],
+                  padding: EdgeInsets.all(20),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  side: BorderSide(width: 3.0, color: Colors.black)
+              ),)
+          ],
+        ),
       ),
     );
   }
