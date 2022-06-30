@@ -49,6 +49,9 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       child: Column(
                         children: [
+                          _mainButton(Icons.ac_unit_sharp, "받은 편지함"),
+                          _mainButton(Icons.ac_unit_sharp, "받은 편지함"),
+                          _mainButton(Icons.ac_unit_sharp, "받은 편지함"),
 
                         ],
                       ),
@@ -62,6 +65,16 @@ class HomePage extends StatelessWidget {
               );
             }
           }),
-    ));
+    ),
+    );
+  }
+
+  Widget _mainButton(IconData icon, String title){
+  return Row(
+      children: [
+        Icon(icon),
+        Text(title),
+      ],
+    );
   }
 }
