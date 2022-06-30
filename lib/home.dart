@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
-                return const LoginPage();
+                return const Login();
               } else {
                 return ListView(
                   children: [
