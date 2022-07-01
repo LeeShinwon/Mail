@@ -154,7 +154,7 @@ class HomePage extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [Icon(Icons.navigate_next, color: Colors.grey,),],),
+          children: [Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),],),
       ]),
     );
   }

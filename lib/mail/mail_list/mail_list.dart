@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 
 import '../mail.dart';
@@ -40,7 +41,9 @@ class _MailListState extends State<MailList> {
               if(one.get('writer') == user!.email || one.get('recipient') == user!.email){
                 print(user!.email);
                 Timestamp t = one.get('time');
-                String time = DateTime.fromMicrosecondsSinceEpoch(t.microsecondsSinceEpoch).toString();
+                String time = DateTime.fromMicrosecondsSinceEpoch(t.microsecondsSinceEpoch).toString().split(" ")[0];
+                time = time.replaceAll("-", ".");
+
                 Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
 
                 mailDocs.add(mail);
