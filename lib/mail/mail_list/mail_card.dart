@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,33 +11,74 @@ class MailCard extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    String content = mailDoc!.content.length > 30 ? mailDoc!.content.substring(0,30)+"...":  mailDoc!.content;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          Divider(indent: 20,color:Colors.grey),
-          Row(
-            children: [
-              Icon(CupertinoIcons.circle_fill, size: 10, color: Colors.blueAccent,),
-              SizedBox(width: 10,),
-              Text(mailDoc!.writer,
-                style: TextStyle(
-                fontSize: 15,
-                  fontWeight: FontWeight.bold,
-              ),),
+          Divider(indent: 30,color:Colors.grey),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                mailDoc!.read == true ? SizedBox(width: 10,):
+                Icon(CupertinoIcons.circle_fill, size: 10, color: Colors.blueAccent,),
 
-              Expanded(child: SizedBox(),),
-              Text(mailDoc!.time),
-              Icon(CupertinoIcons.chevron_right , size:15,color: Colors.grey,),
-            ],
+                SizedBox(width: 10,),
+                Text(mailDoc!.writer,
+                  style: TextStyle(
+                  fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                ),),
+
+                Expanded(child: SizedBox(),),
+                Text(mailDoc!.time+". ",style: TextStyle(
+                  color: Colors.grey,
+                )),
+                Icon(CupertinoIcons.chevron_right , size:15,color: Colors.grey,),
+              ],
+            ),
           ),
-          Row(
-            children: [
-              SizedBox(width: 20,),
-              Text(content),
-            ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Row(
+              children: [
+                SizedBox(width: 20,),
+                Flexible(
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    text: TextSpan(
+                        text: mailDoc!.title,
+                        style: TextStyle(
+                          color: Colors.black,
+                        )
+                    )
+                    ,),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Row(
+              children: [
+                SizedBox(width: 20,),
+                Flexible(
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      text: TextSpan(
+                        text:  MediaQuery.of(context).size.width < mailDoc!.content.length ? mailDoc!.content : mailDoc!.content+"\n",
+                          style: TextStyle(
+                            color: Colors.grey,
+                          )
+                      )
+                     ,),
+                ),
+
+              ],
+            ),
           ),
         ],
       ),
