@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'login.dart';
+import 'mail/mail_list/mail_screen.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -12,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEFEFEF),
+      backgroundColor: Color(0xFFF2F2F6),
       body: SafeArea(
         child: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
@@ -40,6 +43,9 @@ class HomePage extends StatelessWidget {
                               TextButton(onPressed: (){
                                 FirebaseAuth.instance.signOut();
                               }, child: Text("signout"),),
+                              TextButton(onPressed: (){
+                                Get.to(MailScreen());
+                              }, child: Text("메일함"),),
                             ],
                           ),
                           Row(
@@ -49,7 +55,7 @@ class HomePage extends StatelessWidget {
                                 "메일상자",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 35,
+                                  fontSize: 30,
                                 ),
                               ),
                             ],
@@ -58,14 +64,14 @@ class HomePage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              padding: EdgeInsets.symmetric(vertical: 8),
                               color: Colors.white,
                               child: Column(
                                 children: [
                                   _mainButton(CupertinoIcons.tray , "받은 편지함"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.star, "VIP"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.flag, "깃발 표시됨"),
                                 ],
                               ),
@@ -78,10 +84,10 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "${snapshot.data.displayName}님",
+                                "${snapshot.data.displayName} 님",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15,
                                 ),
                               ),
                             ],
@@ -90,21 +96,21 @@ class HomePage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              padding: EdgeInsets.symmetric(vertical: 8),
                               color: Colors.white,
                               child: Column(
                                 children: [
                                   _mainButton(CupertinoIcons.doc, "임시 저장"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.paperplane, "보낸 편지함"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.bin_xmark, "정크"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.delete, "휴지통"),
-                                  Divider(),
+                                  Divider(indent: 50,color:Colors.grey),
                                   _mainButton(CupertinoIcons.archivebox, "모든 메일"),
-                                  Divider(),
-                                  _mainButton(CupertinoIcons.folder, "별표 편지함"),
+                                  Divider(indent: 50,color:Colors.grey),
+                                  _mainButton(CupertinoIcons.folder, "별표 편지함",)
                                 ],
                               ),
                             ),
@@ -115,7 +121,7 @@ class HomePage extends StatelessWidget {
                           // )
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [Icon(CupertinoIcons.square_pencil, size: 30, color: Colors.blueAccent,)],),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [Icon(CupertinoIcons.pencil_outline, size: 20, color: Colors.blueAccent,)],),
                           )
                         ],
                       ),
@@ -130,25 +136,25 @@ class HomePage extends StatelessWidget {
 
   Widget _mainButton(IconData icon, String title) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 0),
+      padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 0),
       child: Stack(
         alignment: AlignmentDirectional.centerStart,
         children: [
         Row(
           children: [
-            Icon(icon, size: 30, color: Colors.blueAccent,),
+            Icon(icon, size: 20, color: Colors.blueAccent,),
             SizedBox(
               width: 15,
             ),
             Text(
               title,
-              style: TextStyle(fontSize: 17),
+              style: TextStyle(fontSize: 15),
             ),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [Icon(Icons.navigate_next),],),
+          children: [Icon(Icons.navigate_next, color: Colors.grey,),],),
       ]),
     );
   }
