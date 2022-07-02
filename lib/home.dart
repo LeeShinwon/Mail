@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:mail/mail/mail_content/show_mail.dart';
 
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                                 FirebaseAuth.instance.signOut();
                               }, child: Text("signout"),),
                               TextButton(onPressed: (){
-                                Get.to(MailScreen());
+                                Get.to(MailScreen("보낸편지함"));
                               }, child: Text("메일함"),),
                             ],
                           ),
@@ -135,27 +136,32 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _mainButton(IconData icon, String title) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 0),
-      child: Stack(
-        alignment: AlignmentDirectional.centerStart,
-        children: [
-        Row(
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 0),
+        child: Stack(
+          alignment: AlignmentDirectional.centerStart,
           children: [
-            Icon(icon, size: 20, color: Colors.blueAccent,),
-            SizedBox(
-              width: 15,
-            ),
-            Text(
-              title,
-              style: TextStyle(fontSize: 15),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),],),
-      ]),
+          Row(
+            children: [
+              Icon(icon, size: 20, color: Colors.blueAccent,),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                title,
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),],),
+        ]),
+      ),
+      onTap: (){
+        Get.to(MailScreen(title));
+      },
     );
   }
 }

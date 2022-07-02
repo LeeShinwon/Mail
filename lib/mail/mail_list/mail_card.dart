@@ -26,7 +26,7 @@ class MailCard extends StatelessWidget {
                 Icon(CupertinoIcons.circle_fill, size: 10, color: Colors.blueAccent,),
 
                 SizedBox(width: 10,),
-                Text(mailDoc!.writer,
+                Text(mailDoc!.recipient,
                   style: TextStyle(
                   fontSize: 17,
                     fontWeight: FontWeight.w600,

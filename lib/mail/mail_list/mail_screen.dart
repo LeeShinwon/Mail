@@ -6,7 +6,8 @@ import 'mail_list.dart';
 
 
 class MailScreen extends StatefulWidget {
-  const MailScreen({Key? key}) : super(key: key);
+  MailScreen(this.title, {Key? key}) : super(key: key);
+  String? title;
 
   @override
   State<MailScreen> createState() => _MailScreenState();
@@ -22,7 +23,7 @@ class _MailScreenState extends State<MailScreen> {
       body: Container(
           child: Column(
             children: [
-              Expanded(child: MailList(),),
+              Expanded(child: MailList(widget.title),),
             ],
           )
       ),

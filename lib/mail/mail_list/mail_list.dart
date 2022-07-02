@@ -10,8 +10,8 @@ import '../mail.dart';
 import 'mail_card.dart';
 
 class MailList extends StatefulWidget {
-  const MailList({Key? key}) : super(key: key);
-
+  MailList(this.title, {Key? key}) : super(key: key);
+  String? title;
   @override
   State<MailList> createState() => _MailListState();
 }
@@ -42,16 +42,31 @@ class _MailListState extends State<MailList> {
             for(int i=0; i<snapshot.data!.docs.length; i++){
               var one = snapshot.data!.docs[i];
               if(one.get('writer') == user!.email || one.get('recipient') == user!.email){
-                print(user!.email);
+                print(widget.title);
                 Timestamp t = one.get('time');
                 String time = DateTime.fromMicrosecondsSinceEpoch(t.microsecondsSinceEpoch).toString().split(" ")[0];
                 time = time.replaceAll("-", ".");
 
-
-
-                Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
-
-                mailDocs.add(mail);
+                if(widget.title == "보낸 편지함"){
+                  if(one.get('writer')== user!.email){
+                    Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
+                    mailDocs.add(mail);
+                  }
+                }
+                else if(widget.title == "받은 편지함"){
+                  if(one.get('recipient')== user!.email){
+                    Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
+                    mailDocs.add(mail);
+                  }
+                }
+                else if(widget.title == "임시 저장"){
+                  if(one.get('writer')== user!.email && one.get('sent') == false){
+                    Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
+                    mailDocs.add(mail);
+                  }
+                }
+                else{
+                }
               }
             }
           }
