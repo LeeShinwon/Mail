@@ -6,6 +6,15 @@ import 'package:mail/model/mail.dart';
 
 import 'mail/mail.dart';
 
+User? user = FirebaseAuth.instance.currentUser;
+final _formKey = GlobalKey<FormState>();
+String _recipient = "";
+String _writer = "";
+String _title = "";
+String _content = "";
+late DateTime _dateTime;
+//File file = 이미지;
+
 //참조1 : https://www.youtube.com/watch?v=AjAQglJKcb4
 //참조2 : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
 Widget buildSheet(BuildContext context) => GestureDetector(
@@ -51,37 +60,29 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                     onPressed: () {
                       if(_formKey.currentState!.validate()){
                         _formKey.currentState!.save();
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(content: Text("전송이 완료되었습니다"),),
-                        // );
-                        showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context){
-                              return custom_AlertDialog();
-                            }
-                        );
-
-                        // final mailRef = FirebaseFirestore.instance.collection('mail').withConverter(
-                        //     fromFirestore: (snapshot, _) => Mail.fromJson(snapshot.data()!),
-                        //     toFirestore: (mail, _) => mail.toJson(),
+                        /*for Test*/
+                        // showDialog(
+                        //     context: context,
+                        //     barrierDismissible: false,
+                        //     builder: (BuildContext context){
+                        //       return custom_AlertDialog();
+                        //     }
                         // );
 
-                        FirebaseFirestore firestore = FirebaseFirestore.instance;
                         CollectionReference mail = FirebaseFirestore.instance.collection('mail');
+                        _dateTime = DateTime.now();
 
-                        mail.add(
-                          Mail(
-                            writer: _writer,
-                            recipient: _recipient,
-                            title: _title,
-                            content: _content,
-                            mail_id: "",
-                            read: false,
-                            sent: true,
-                            time: DateTime.now().microsecondsSinceEpoch as String
-                          ),
-                        );
+                        mail.add({
+                          //Mail(
+                            'writer': _writer,
+                            'recipient': _recipient,
+                            'title': _title,
+                            'content': _content,
+                            'mail_id': "",
+                            'read': false,
+                            'sent': true,
+                            'time': "${_dateTime.toLocal()}".split(' ')[0],
+                        });
                       }
                     },
                   ),
@@ -93,14 +94,6 @@ Widget buildSheet(BuildContext context) => GestureDetector(
         ),
       ),
 );
-
-User? user = FirebaseAuth.instance.currentUser;
-final _formKey = GlobalKey<FormState>();
-String _recipient = "";
-String _writer = "";
-String _title = "";
-String _content = "";
-//File file = 이미지;
 
 Widget WritingForm() => Form(
   key: _formKey,
@@ -165,37 +158,38 @@ Widget InputField(String text, int index) {
   );
 }
 
-class custom_AlertDialog extends StatelessWidget {
-  const custom_AlertDialog({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('팝업 메시지'),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget> [
-            Text('전송이 완료되었습니다'),
-            Text('확인 버튼을 누르세요'),
-          ],
-        ),
-      ),
-      actions: <Widget> [
-        ElevatedButton(
-          child: Text('ok'),
-          onPressed: (){
-            Get.back();
-          },
-        ),
-        ElevatedButton(
-          child: Text('cancle'),
-          onPressed: (){
-            Get.back();
-          },
-        ),
-      ],
-    );
-  }
-}
+/* Useful code - AlertDialog */
+// class custom_AlertDialog extends StatelessWidget {
+//   const custom_AlertDialog({
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       title: Text('팝업 메시지'),
+//       content: SingleChildScrollView(
+//         child: ListBody(
+//           children: <Widget> [
+//             Text('전송이 완료되었습니다'),
+//             Text('확인 버튼을 누르세요'),
+//           ],
+//         ),
+//       ),
+//       actions: <Widget> [
+//         ElevatedButton(
+//           child: Text('ok'),
+//           onPressed: (){
+//             Get.back();
+//           },
+//         ),
+//         ElevatedButton(
+//           child: Text('cancle'),
+//           onPressed: (){
+//             Get.back();
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
