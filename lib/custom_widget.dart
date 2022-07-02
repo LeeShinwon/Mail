@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,27 +9,24 @@ import 'package:get/get.dart';
 Widget buildSheet(BuildContext context) => GestureDetector(
   onTap: (){FocusScope.of(context).unfocus();},
   child:   Container(
-        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                GestureDetector(
-                    child: const Text(
-                      "취소",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
-                      ),
+                TextButton(
+                  child: Text("취소", style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 15,
                     ),
-                    onTap: () {
-                      Get.back(); //Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
-                    }),
+                  ),
+                  onPressed: (){
+                    Get.back(); //Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                  },
+                ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -36,12 +34,12 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                     "새로운 메시지",
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 32,
+                      fontSize: 30,
                     ),
                   ),
                   IconButton(
                     icon: const Icon(
-                      Icons.cloud_upload,
+                      CupertinoIcons.arrow_up_circle_fill,
                       color: Colors.grey,
                       size: 30,
                     ),
@@ -135,12 +133,12 @@ Widget InputField(String text, int index) {
       return null;
     },
     initialValue: (index == 1)? FirebaseAuth.instance.currentUser!.email : null,
-    autofocus: true,
-    textCapitalization: TextCapitalization.words,
-    keyboardType: TextInputType.text,
-    textInputAction: TextInputAction.next,
+    //autofocus: true,
+    //textCapitalization: TextCapitalization.words,
+    //keyboardType: TextInputType.text,
+    //textInputAction: TextInputAction.next,
     decoration: InputDecoration(
-      labelText: text,
+      prefix: Text(text),
     ),
   );
 }

@@ -48,7 +48,7 @@ class _MailScreenState extends State<MailScreen> {
         child: Row(
           children: [
             IconButton(onPressed: (){
-              Get.to(MailList(widget.title! + " 읽지 않음"));
+
             }, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
             Spacer(),
             IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
