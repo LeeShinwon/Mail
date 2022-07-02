@@ -1,6 +1,7 @@
 class Mail {
   Mail({required this.writer, required this.recipient, required this.content, required this.mail_id, required this.read, required this.sent, required this.time, required this.title});
 
+
   Mail.fromJson(Map<String, Object?> json)
       : this(
     writer: json['writer']! as String,

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../model/mail.dart';
 
-import '../mail.dart';
 
 class MailCard extends StatelessWidget {
   MailCard(this.mailDoc, {Key? key}) : super(key: key);
