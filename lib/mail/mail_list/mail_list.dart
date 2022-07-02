@@ -7,13 +7,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 import 'package:mail/mail/mail_content/temporary_storage.dart';
 
-import '../../model/mail.dart';
 import '../mail.dart';
 import 'mail_card.dart';
 
 class MailList extends StatefulWidget {
   MailList(this.title, {Key? key}) : super(key: key);
   String? title;
+
   @override
   State<MailList> createState() => _MailListState();
 }
@@ -39,27 +39,21 @@ class _MailListState extends State<MailList> {
 
         List<Mail> mailDocs = [];
 
-        print(widget.title);
+        //print(widget.title);
 
         if (snapshot.hasData) {
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
             var one = snapshot.data!.docs[i];
             if (one.get('writer') == user!.email ||
                 one.get('recipient') == user!.email) {
-              print(widget.title);
+
               Timestamp t = one.get('time');
-              String time = DateTime.fromMicrosecondsSinceEpoch(
-                  t.microsecondsSinceEpoch).toString().split(" ")[0];
+              print(one.get('time'));
+              String time = DateTime.fromMicrosecondsSinceEpoch(t.microsecondsSinceEpoch).toString().split(" ")[0];
+              print(time);
               time = time.replaceAll("-", ".");
 
-              Mail mail = Mail(writer: one.get('writer'),
-                  recipient: one.get('recipient'),
-                  title: one.get('title'),
-                  content: one.get('content'),
-                  mail_id: one.get('mail_id'),
-                  time: time,
-                  read: one.get('read'),
-                  sent: one.get('sent'));
+              Mail mail = Mail(one.get('mail_id'), one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
 
               if (widget.title == "보낸 편지함") {
                 if (one.get('writer') == user!.email) {

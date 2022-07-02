@@ -79,7 +79,7 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                             'mail_id': "",
                             'read': false,
                             'sent': true,
-                            'time': "${_dateTime.toLocal()}".split(' ')[0],
+                            'time': _dateTime.toLocal(),
                         });
                       }
                     },
@@ -96,6 +96,7 @@ Widget buildSheet(BuildContext context) => GestureDetector(
 Widget WritingForm() => Form(
   key: _formKey,
   child: SingleChildScrollView(
+    padding: EdgeInsets.fromLTRB(16, 0,0,0),
     child: Column(
       children: <Widget> [
         InputField("받는 사람: ", 0),

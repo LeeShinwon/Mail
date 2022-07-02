@@ -123,34 +123,6 @@ class HomePage extends StatelessWidget {
                           //   "${snapshot.data.displayName}님 환영합니다.",
                           //   style: TextStyle(fontSize: 20),
                           // )
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(icon: Icon(
-                                  CupertinoIcons.pencil_outline,
-                                  size: 30,
-                                  color: Colors.blueAccent,
-                                ),
-                                onPressed: ()=>showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-                                  //enableDrag: false,
-                                  //isDismissible: false,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (context) => Container(
-                                    height: getScreenHeight(context)*0.9,
-                                      child: buildSheet(context)),
-                                ),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -163,7 +135,22 @@ class HomePage extends StatelessWidget {
         child: Row(
           children: [
             Spacer(),
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
+            IconButton(onPressed: (){
+              showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                //enableDrag: false,
+                //isDismissible: false,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                context: context,
+                builder: (context) => Container(
+                    height: getScreenHeight(context)*0.9,
+                    child: buildSheet(context)),
+              );
+            }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
           ],
         ),
       ) ,
