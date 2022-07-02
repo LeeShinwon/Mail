@@ -146,12 +146,13 @@ Widget InputField(String text, int index) {
       return null;
     },
     initialValue: (index == 1)? FirebaseAuth.instance.currentUser!.email : null,
-    //autofocus: true,
-    //textCapitalization: TextCapitalization.words,
-    //keyboardType: TextInputType.text,
-    //textInputAction: TextInputAction.next,
+    autofocus: true,
+    textCapitalization: TextCapitalization.words,
+    keyboardType: TextInputType.text,
+    textInputAction: TextInputAction.next,
     decoration: InputDecoration(
-      prefix: Text(text),
+      labelText: text,
+      //prefix: Text(text),
     ),
   );
 }
