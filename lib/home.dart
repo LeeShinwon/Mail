@@ -33,20 +33,17 @@ class HomePage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
+                              IconButton(onPressed: (){
+                                FirebaseAuth.instance.signOut();
+                              }, icon: Icon(CupertinoIcons.square_arrow_left ,size:20, color: Colors.blueAccent,)),
                               Text(
                                 "편집",
                                 style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 20,
-                                  decoration: TextDecoration.underline,
+                                  color: Colors.blueAccent,
+                                  fontSize: 15,
+
                                 ),
                               ),
-                              TextButton(onPressed: (){
-                                FirebaseAuth.instance.signOut();
-                              }, child: Text("signout"),),
-                              TextButton(onPressed: (){
-                                Get.to(MailScreen("보낸편지함"));
-                              }, child: Text("메일함"),),
                             ],
                           ),
                           Row(
@@ -116,14 +113,6 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          // Text(
-                          //   "${snapshot.data.displayName}님 환영합니다.",
-                          //   style: TextStyle(fontSize: 20),
-                          // )
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [Icon(CupertinoIcons.pencil_outline, size: 20, color: Colors.blueAccent,)],),
-                          )
                         ],
                       ),
                     ),
@@ -132,6 +121,14 @@ class HomePage extends StatelessWidget {
               }
             }),
       ),
+      bottomNavigationBar:BottomAppBar(
+        child: Row(
+          children: [
+            Spacer(),
+            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
+          ],
+        ),
+      ) ,
     );
   }
 

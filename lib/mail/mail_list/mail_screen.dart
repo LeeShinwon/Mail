@@ -32,10 +32,7 @@ class _MailScreenState extends State<MailScreen> {
           children: [
             IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
             Spacer(),
-
             IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
-
-
           ],
         ),
       ) ,

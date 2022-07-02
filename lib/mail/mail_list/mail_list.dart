@@ -65,6 +65,10 @@ class _MailListState extends State<MailList> {
                     mailDocs.add(mail);
                   }
                 }
+                else if(widget.title == "모든 메일"){
+                  Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
+                  mailDocs.add(mail);
+                }
                 else{
                 }
               }
