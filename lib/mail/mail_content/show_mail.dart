@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mail/mail/mail.dart';
+import '../../model/mail.dart';
 
 class ShowMail extends StatelessWidget {
   ShowMail(this.mailDoc, {Key? key}) : super(key: key);

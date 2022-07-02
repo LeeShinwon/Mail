@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mail/model/mail.dart';
+
+import 'mail/mail.dart';
 
 //참조1 : https://www.youtube.com/watch?v=AjAQglJKcb4
 //참조2 : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
@@ -58,12 +61,27 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                               return custom_AlertDialog();
                             }
                         );
+
+                        // final mailRef = FirebaseFirestore.instance.collection('mail').withConverter(
+                        //     fromFirestore: (snapshot, _) => Mail.fromJson(snapshot.data()!),
+                        //     toFirestore: (mail, _) => mail.toJson(),
+                        // );
+
                         FirebaseFirestore firestore = FirebaseFirestore.instance;
                         CollectionReference mail = FirebaseFirestore.instance.collection('mail');
 
-                        // mail.add(
-                        //
-                        // );
+                        mail.add(
+                          Mail(
+                            writer: _writer,
+                            recipient: _recipient,
+                            title: _title,
+                            content: _content,
+                            mail_id: "",
+                            read: false,
+                            sent: true,
+                            time: DateTime.now().microsecondsSinceEpoch as String
+                          ),
+                        );
                       }
                     },
                   ),
@@ -76,10 +94,10 @@ Widget buildSheet(BuildContext context) => GestureDetector(
       ),
 );
 
-
+User? user = FirebaseAuth.instance.currentUser;
 final _formKey = GlobalKey<FormState>();
 String _recipient = "";
-String _writer = FirebaseAuth.instance.currentUser!.uid;
+String _writer = "";
 String _title = "";
 String _content = "";
 //File file = 이미지;
@@ -121,6 +139,8 @@ Widget InputField(String text, int index) {
     onSaved: (value){
       if(index==0)
         _recipient = value as String;
+      else if(index==1)
+        _writer = value as String;
       else if(index==2)
         _title = value as String;
     },
