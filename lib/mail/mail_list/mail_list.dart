@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:intl/intl.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 
 import '../mail.dart';
@@ -19,7 +18,9 @@ class MailList extends StatefulWidget {
 
 class _MailListState extends State<MailList> {
   final user = FirebaseAuth.instance.currentUser;
+  //final userCollectionReference = FirebaseFirestore.instance.collection('user');
   late QuerySnapshot querySnapshot;
+
 
 
   @override
@@ -35,6 +36,8 @@ class _MailListState extends State<MailList> {
 
           List<Mail> mailDocs = [];
 
+          String recipient_name;
+
           if(snapshot.hasData){
             for(int i=0; i<snapshot.data!.docs.length; i++){
               var one = snapshot.data!.docs[i];
@@ -44,6 +47,8 @@ class _MailListState extends State<MailList> {
                 String time = DateTime.fromMicrosecondsSinceEpoch(t.microsecondsSinceEpoch).toString().split(" ")[0];
                 time = time.replaceAll("-", ".");
 
+
+
                 Mail mail = Mail(one.get('mail_id'),one.get('title'),one.get('content'),one.get('writer'),one.get('recipient'),time,one.get('read'),one.get('sent'));
 
                 mailDocs.add(mail);
@@ -51,17 +56,17 @@ class _MailListState extends State<MailList> {
             }
           }
           //final mailDocs = snapshot.data!.docs;//docs에 접근
+          
         return ListView.builder(
           itemCount: mailDocs.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: (){
-                  Get.to(ShowMail());
+                  Get.to(ShowMail(mailDocs[index]));
                 },
                 child: MailCard(mailDocs[index]),
               );
             }
-
         );
       },
 
