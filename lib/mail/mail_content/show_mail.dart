@@ -69,6 +69,21 @@ class ShowMail extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar:BottomAppBar(
+        child: Row(
+          children: [
+            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.archivebox , color: Colors.blueAccent,)),
+            Spacer(),
+            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.folder, color: Colors.blueAccent,)),
+            Spacer(),
+            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.arrowshape_turn_up_left , color: Colors.blueAccent,)),
+            Spacer(),
+            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
+
+
+          ],
+        ),
+      ) ,
     );
   }
 }
