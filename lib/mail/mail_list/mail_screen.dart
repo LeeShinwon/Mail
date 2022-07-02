@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'mail_list.dart';
 
@@ -30,7 +32,9 @@ class _MailScreenState extends State<MailScreen> {
       bottomNavigationBar:BottomAppBar(
         child: Row(
           children: [
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
+            IconButton(onPressed: (){
+              Get.to(MailList(widget.title! + " 읽지 않음"));
+            }, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
             Spacer(),
             IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
           ],

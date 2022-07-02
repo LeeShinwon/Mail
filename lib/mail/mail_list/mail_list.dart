@@ -36,7 +36,7 @@ class _MailListState extends State<MailList> {
 
           List<Mail> mailDocs = [];
 
-          String recipient_name;
+          print(widget.title);
 
           if(snapshot.hasData){
             for(int i=0; i<snapshot.data!.docs.length; i++){
