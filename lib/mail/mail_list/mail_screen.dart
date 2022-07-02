@@ -22,12 +22,27 @@ class _MailScreenState extends State<MailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          child: Column(
-            children: [
-              Expanded(child: MailList(widget.title),),
-            ],
-          )
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context,innerBoxIsScrolled) => [
+          SliverAppBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              title: Text(widget.title.toString(),
+                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),
+            floating: true,
+            snap: true,
+            forceElevated: innerBoxIsScrolled,
+            centerTitle: true,
+            pinned: true,
+          ),
+        ],
+        body: Container(
+            child: Column(
+              children: [
+                Expanded(child: MailList(widget.title),),
+              ],
+            )
+        ),
       ),
       bottomNavigationBar:BottomAppBar(
         child: Row(
