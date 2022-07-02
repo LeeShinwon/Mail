@@ -2,10 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
+import 'package:mail/util/size.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 
+import 'custom_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
 
@@ -58,7 +60,9 @@ class HomePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
@@ -90,7 +94,9 @@ class HomePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Container(
@@ -113,6 +119,38 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          // Text(
+                          //   "${snapshot.data.displayName}님 환영합니다.",
+                          //   style: TextStyle(fontSize: 20),
+                          // )
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(icon: Icon(
+                                  CupertinoIcons.pencil_outline,
+                                  size: 30,
+                                  color: Colors.blueAccent,
+                                ),
+                                onPressed: ()=>showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                                  //enableDrag: false,
+                                  //isDismissible: false,
+                                  isScrollControlled: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20),
+                                    ),
+                                  ),
+                                  context: context,
+                                  builder: (context) => Container(
+                                    height: getScreenHeight(context)*0.9,
+                                      child: buildSheet(context)),
+                                ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -136,12 +174,14 @@ class HomePage extends StatelessWidget {
     return GestureDetector(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 0),
-        child: Stack(
-          alignment: AlignmentDirectional.centerStart,
-          children: [
+        child: Stack(alignment: AlignmentDirectional.centerStart, children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: Colors.blueAccent,),
+              Icon(
+                icon,
+                size: 20,
+                color: Colors.blueAccent,
+              ),
               SizedBox(
                 width: 15,
               ),
@@ -153,7 +193,10 @@ class HomePage extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),],),
+            children: [
+              Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),
+            ],
+          ),
         ]),
       ),
       onTap: (){
