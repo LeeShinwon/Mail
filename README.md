@@ -1,12 +1,16 @@
 # mail
 
-아이폰 기본어플인 Mail을 따라 만든 프로젝트입니다.     
+아이폰 기본어플인 Mail을 따라 만든 프로젝트입니다.
+
+![image](https://user-images.githubusercontent.com/83738381/177155571-906bc106-bdad-4f06-8219-9e07e99c747c.png)
+![image](https://user-images.githubusercontent.com/83738381/177166285-0cfd3a4b-9d2b-4789-b11d-3b76ebe13c95.png)
+
           
 
 ### 주요 구현점
 
 - 기본 UI
-- 구글 로그인
+- 구글 로그인, 로그아웃
 - 파이어베이스 연동
 - 메일 작성
 - 메일 리스트
