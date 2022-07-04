@@ -159,8 +159,44 @@
           ],
         ),
       ),
-  ```
-
+  ```     
+  그러고 나면 아직 만들지 않아서 빨간 밑줄이 그인 _mainButton을 만듭니다. 아래 코드를 class 안에 추가해주세요. _mainButton처럼 반복해서 사용되는 버튼을 위젯화하게 되면, 코드를 더욱 간결하게 작성할 수 있습니다. :)     
+  ```dart
+  Widget _mainButton(IconData icon, String title) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 0),
+        child: Stack(alignment: AlignmentDirectional.centerStart, children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 20,
+                color: Colors.blueAccent,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                title,
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),
+            ],
+          ),
+        ]),
+      ),
+      onTap: (){
+        Get.to(MailScreen(title));
+      },
+    );
+  }
+  ```     
 ---     
 
 > mail_screen.dart (메일 리스트를 보여주는 화면 제작)
