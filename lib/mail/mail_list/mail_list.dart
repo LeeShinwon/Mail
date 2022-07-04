@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
-import 'package:mail/mail/mail_content/temporary_storage.dart';
+import 'package:mail/mail/mail_content/temporaryStorage_modal.dart';
 
 import '../../util/size.dart';
 import '../mail.dart';
-import '../sendMail_modal_widget.dart';
+import '../sendMail_modal.dart';
 import 'mail_card.dart';
 
 class MailList extends StatefulWidget {
@@ -104,7 +104,8 @@ class _MailListState extends State<MailList> {
                     context: context,
                     builder: (context) => Container(
                         height: getScreenHeight(context)*0.9,
-                        child: MailModal(widget.title,mailDocs[index])),
+                        child: ShowTemporaryStorage(mailDocs[index]),
+                  )
                   ) :
                   Get.to(ShowMail(mailDocs[index]));
                 },

@@ -43,7 +43,7 @@ class Login extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/icon/google_logo_icon.png', width: 30,),
+                    Image.asset('assets/icon/google_logo_icon.png', width: 20,),
                     Text("  Sign in with Google",
                       style: TextStyle(
                         color: Colors.black,

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../mail.dart';
-import '../sendMail_modal_widget.dart';
+import '../sendMail_modal.dart';
 import '../../util/size.dart';
 import 'mail_list.dart';
 
@@ -58,7 +58,7 @@ class _MailScreenState extends State<MailScreen> {
                 context: context,
                 builder: (context) => Container(
                     height: getScreenHeight(context)*0.9,
-                    child: MailModal("새로운 메일",new Mail("","","","","","",false, false)),
+                    child: MailModal(),
               ),
               );
             }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),

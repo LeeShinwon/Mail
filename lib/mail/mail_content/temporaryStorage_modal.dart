@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail.dart';
+
 
 final _formKey = GlobalKey<FormState>();
 String _recipient = "";
@@ -13,11 +15,8 @@ String _content = "";
 late DateTime _dateTime;
 //File file = 이미지;
 
-//참조1 : https://www.youtube.com/watch?v=AjAQglJKcb4
-//참조2 : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-class MailModal extends StatelessWidget {
-  MailModal(this.title, this.mailDoc, {Key? key}) : super(key: key);
-  String? title;
+class ShowTemporaryStorage extends StatelessWidget {
+  ShowTemporaryStorage(this.mailDoc, {Key? key}) : super(key: key);
   Mail mailDoc;
 
   @override
@@ -33,7 +32,19 @@ class MailModal extends StatelessWidget {
               ),
               ),
               onPressed: (){
-                Get.back(); //Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                if(_formKey.currentState!.validate()){
+                  _formKey.currentState!.save();
+
+                  _dateTime = DateTime.now();
+                  FirebaseFirestore.instance.collection('mail').doc(mailDoc.mail_id).update(
+                      {'title':_title,
+                        'content': _content,
+                        'recipient': _recipient,
+                        'time': _dateTime,
+                      });
+
+                  Get.back();//Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                }
               },
             ),
           ],
@@ -44,7 +55,7 @@ class MailModal extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                title!,
+                "임시 저장",
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 30,
@@ -59,28 +70,16 @@ class MailModal extends StatelessWidget {
                 onPressed: () {
                   if(_formKey.currentState!.validate()){
                     _formKey.currentState!.save();
-                    /*for Test*/
-                    // showDialog(
-                    //     context: context,
-                    //     barrierDismissible: false,
-                    //     builder: (BuildContext context){
-                    //       return custom_AlertDialog();
-                    //     }
-                    // );
 
-                    CollectionReference mail = FirebaseFirestore.instance.collection('mail');
                     _dateTime = DateTime.now();
+                    FirebaseFirestore.instance.collection('mail').doc(mailDoc.mail_id).update(
+                        {'title':_title,
+                          'content': _content,
+                          'recipient': _recipient,
+                          'time': _dateTime,
+                          'sent':true,
+                        });
 
-                    mail.add({
-                      //Mail(
-                      'writer': _writer,
-                      'recipient': _recipient,
-                      'title': _title,
-                      'content': _content,
-                      'read': (_writer == _recipient) ? true: false,
-                      'sent': true,
-                      'time': _dateTime.toLocal(),
-                    });
                     Get.back();
                   }
                 },
@@ -88,48 +87,48 @@ class MailModal extends StatelessWidget {
             ],
           ),
         ),
-        WritingForm(),
+        WritingForm(mailDoc),
       ],
     );
   }
 }
 
-
-Widget WritingForm() => Form(
+Widget WritingForm(Mail mailDoc) => Form(
   key: _formKey,
   child: SingleChildScrollView(
     padding: EdgeInsets.fromLTRB(16, 0,0,0),
     child: Column(
       children: <Widget> [
-        InputField("받는 사람: ", 0),
-        InputField("보낸 사람: ", 1),
-        InputField("제목: ", 2),
+        InputField("받는 사람: ", 0, mailDoc),
+        InputField("보낸 사람: ", 1, mailDoc),
+        InputField("제목: ", 2, mailDoc),
         TextFormField(
-      onSaved: (value){
-        _content = value as String;
-      },
-      validator: (value){
-        if( value == null || value!.isEmpty ){
-          return '내용을 입력하세요';
-        }
-        return null;
-      },
-      textCapitalization: TextCapitalization.words,
-      keyboardType: TextInputType.multiline,
+          onSaved: (value){
+            _content = value as String;
+          },
+          validator: (value){
+            if( value == null || value!.isEmpty ){
+              return '내용을 입력하세요';
+            }
+            return null;
+          },
+          textCapitalization: TextCapitalization.words,
+          keyboardType: TextInputType.multiline,
           minLines: 40,
           maxLines: 100,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "내용을 입력하세요.",
           ),
-    ),
+            initialValue: mailDoc.content,
+        ),
         // SizedBox(height: 16,),
       ],
     ),
   ),
 );
 
-Widget InputField(String text, int index) {
+Widget InputField(String text, int index,Mail mail) {
   return TextFormField(
     //autovalidateMode: AutovalidateMode.always,
     onSaved: (value){
@@ -151,7 +150,7 @@ Widget InputField(String text, int index) {
       return null;
     },
     readOnly: (index ==1) ? true: false,
-    initialValue: (index == 1)? FirebaseAuth.instance.currentUser!.email : null,
+    initialValue: (index == 0)? mail.recipient : (index==1? mail.writer : mail.title),
     keyboardType: TextInputType.text,
     textInputAction: TextInputAction.next,
     autofocus: true,
