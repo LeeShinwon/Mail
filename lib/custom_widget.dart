@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mail/model/mail.dart';
-
-import 'mail/mail.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
 final _formKey = GlobalKey<FormState>();
@@ -76,11 +73,11 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                             'recipient': _recipient,
                             'title': _title,
                             'content': _content,
-                            'mail_id': "",
                             'read': false,
                             'sent': true,
                             'time': _dateTime.toLocal(),
                         });
+                        Get.back();
                       }
                     },
                   ),
@@ -112,12 +109,14 @@ Widget WritingForm() => Form(
         }
         return null;
       },
-      autofocus: true,
       textCapitalization: TextCapitalization.words,
       keyboardType: TextInputType.multiline,
-      textInputAction: TextInputAction.next,
-          minLines: 1,
-          maxLines: 1000,
+          minLines: 50,
+          maxLines: 100,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "내용을 입력하세요.",
+          ),
     ),
         // SizedBox(height: 16,),
       ],
@@ -146,17 +145,22 @@ Widget InputField(String text, int index) {
       }
       return null;
     },
+    readOnly: (index ==1) ? true: false,
     initialValue: (index == 1)? FirebaseAuth.instance.currentUser!.email : null,
-    autofocus: true,
-    textCapitalization: TextCapitalization.words,
     keyboardType: TextInputType.text,
     textInputAction: TextInputAction.next,
+    autofocus: true,
     decoration: InputDecoration(
       labelText: text,
+      labelStyle: TextStyle(
+        fontSize: 12,
+      ),
       //prefix: Text(text),
     ),
+
   );
 }
+
 
 /* Useful code - AlertDialog */
 // class custom_AlertDialog extends StatelessWidget {

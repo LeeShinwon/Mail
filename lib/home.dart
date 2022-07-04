@@ -142,7 +142,7 @@ class HomePage extends StatelessWidget {
                 isScrollControlled: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20),
+                    top: Radius.circular(10),
                   ),
                 ),
                 context: context,

@@ -53,7 +53,7 @@ class _MailListState extends State<MailList> {
               print(time);
               time = time.replaceAll("-", ".");
 
-              Mail mail = Mail(one.get('mail_id'), one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
+              Mail mail = Mail(one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
 
               if (widget.title == "보낸 편지함") {
                 if (one.get('writer') == user!.email) {

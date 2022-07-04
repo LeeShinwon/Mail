@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,28 +34,31 @@ class Login extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton(
-              onPressed: signInWithGoogle,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/icon/google_logo_icon.png', width: 30,),
-                  Text("  Start with Google",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),),
+            Image.asset('assets/icon/icon.png', width: 220,),
+            SizedBox(height: 50,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 70),
+              child: OutlinedButton(
+                onPressed: signInWithGoogle,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/icon/google_logo_icon.png', width: 30,),
+                    Text("  Sign in with Google",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),),
 
-                ],
-              ),
-              style: OutlinedButton.styleFrom(
-
-                  padding: EdgeInsets.all(20),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  side: BorderSide(width: 3.0, color: Colors.black)
-              ),)
+                  ],
+                ),
+                style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                ),),
+            )
           ],
         ),
       ),
