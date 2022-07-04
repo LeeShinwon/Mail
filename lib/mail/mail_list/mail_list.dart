@@ -7,7 +7,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 import 'package:mail/mail/mail_content/temporary_storage.dart';
 
+import '../../util/size.dart';
 import '../mail.dart';
+import '../sendMail_modal_widget.dart';
 import 'mail_card.dart';
 
 class MailList extends StatefulWidget {
@@ -92,11 +94,17 @@ class _MailListState extends State<MailList> {
                     FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':true});
                   }
                   widget.title == "임시 저장" ?
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ShowTeamporaryStorage();
-                      }
+                  showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(10),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => Container(
+                        height: getScreenHeight(context)*0.9,
+                        child: MailModal(widget.title,mailDocs[index])),
                   ) :
                   Get.to(ShowMail(mailDocs[index]));
                 },

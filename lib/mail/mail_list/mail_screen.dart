@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-import '../../sendMail_modal_widget.dart';
+import '../mail.dart';
+import '../sendMail_modal_widget.dart';
 import '../../util/size.dart';
 import 'mail_list.dart';
 
@@ -50,8 +49,6 @@ class _MailScreenState extends State<MailScreen> {
             Spacer(),
             IconButton(onPressed: (){
               showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-                //enableDrag: false,
-                //isDismissible: false,
                 isScrollControlled: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
@@ -61,7 +58,8 @@ class _MailScreenState extends State<MailScreen> {
                 context: context,
                 builder: (context) => Container(
                     height: getScreenHeight(context)*0.9,
-                    child: buildSheet(context)),
+                    child: MailModal("새로운 메일",new Mail("","","","","","",false, false)),
+              ),
               );
             }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
           ],
