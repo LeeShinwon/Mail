@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../util/size.dart';
 import '../mail.dart';
 import '../mail_content/show_mail.dart';
+import '../mail_content/temporaryStorage_modal.dart';
 import 'mail_card.dart';
 
 class MailList extends StatefulWidget {
@@ -72,6 +74,20 @@ class _MailListState extends State<MailList> {
               //사용자가 클릭하면 반응함.
               return GestureDetector(
                 onTap: () {
+                  widget.title == "임시 저장" ?
+                  showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Container(
+                        height: getScreenHeight(context)*0.9,
+                        child: ShowTemporaryStorage(mailDocs[index]),
+                      )
+                  ) :
                   Get.to(ShowMail(mailDocs[index]));
                 },
                 //itemCount 갯수만큼, MailCard 를 가져와서 보여줌.
