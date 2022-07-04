@@ -201,5 +201,6 @@
 
 > mail_screen.dart (메일 리스트를 보여주는 화면 제작)
   <img src="https://user-images.githubusercontent.com/83738381/177174637-f5dea1a0-f351-4175-a5bc-40bbdfcd53b2.png" width="35%"/>     
-  위와 같은 간단한 화면 제작을 위해 다음 코드를 작성합니다. 이번엔 stful(stateful)을 사용하여 class를 하나 생성하고 이 역시 scaffold로 구조를 잡아줍니다.(scaffold 구조 설명)     
-  [여기서 짚고 넘어갈 점 하나, statefulWidget과 statlessWidget의 차이는 '초기에 그린 해당 화면을 다시 그려주느냐, 혹은 한 번 그리면 화면변화가 없이 유지시키느냐'이다.]     
+  위와 같은 간단한 화면 제작을 위해 다음 코드를 작성합니다. 이번엔 stful(stateful)을 사용하여 class를 하나 생성하고 이 역시 scaffold로 구조를 잡아줍니다.(scaffold 구조 설명)          
+  
+  ** 여기서 짚고 넘어갈 점 하나, statefulWidget과 statlessWidget의 차이는 '초기에 그린 해당 화면을 다시 그려주느냐, 혹은 한 번 그리면 화면변화가 없이 유지시키느냐'다.   
