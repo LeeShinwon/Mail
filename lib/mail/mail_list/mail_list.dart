@@ -53,11 +53,13 @@ class _MailListState extends State<MailList> {
               print(time);
               time = time.replaceAll("-", ".");
 
-              Mail mail = Mail(one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
+              Mail mail = Mail(one.id,one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
 
               if (widget.title == "보낸 편지함") {
                 if (one.get('writer') == user!.email) {
-                  mailDocs.add(mail);
+                  //trick: 내가 보낸 편지는 내가 열어볼때 read 값이 false이어도 이미 읽은 것으로 보여주기 위한
+                  Mail mymail = Mail(one.id,one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, true, one.get('sent'));
+                  mailDocs.add(mymail);
                 }
               }
               else if (widget.title == "받은 편지함") {
@@ -85,6 +87,10 @@ class _MailListState extends State<MailList> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  //받은 사람이 메일을 읽으려고 onTap을 하면 파이어베이스의 mail - read 부분을 true로 update 해주어야 함
+                  if(mailDocs[index].recipient == user?.email){
+                    FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':true});
+                  }
                   widget.title == "임시 저장" ?
                   showModalBottomSheet(
                       context: context,

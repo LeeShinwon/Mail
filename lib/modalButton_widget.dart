@@ -73,7 +73,7 @@ Widget buildSheet(BuildContext context) => GestureDetector(
                             'recipient': _recipient,
                             'title': _title,
                             'content': _content,
-                            'read': false,
+                            'read': (_writer == _recipient) ? true: false,
                             'sent': true,
                             'time': _dateTime.toLocal(),
                         });
@@ -111,7 +111,7 @@ Widget WritingForm() => Form(
       },
       textCapitalization: TextCapitalization.words,
       keyboardType: TextInputType.multiline,
-          minLines: 50,
+          minLines: 40,
           maxLines: 100,
           decoration: InputDecoration(
             border: InputBorder.none,

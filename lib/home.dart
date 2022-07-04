@@ -7,13 +7,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 
-import 'custom_widget.dart';
+import 'modalButton_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
 
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -131,29 +133,6 @@ class HomePage extends StatelessWidget {
               }
             }),
       ),
-      bottomNavigationBar:BottomAppBar(
-        child: Row(
-          children: [
-            Spacer(),
-            IconButton(onPressed: (){
-              showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-                //enableDrag: false,
-                //isDismissible: false,
-                isScrollControlled: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(10),
-                  ),
-                ),
-                context: context,
-                builder: (context) => Container(
-                    height: getScreenHeight(context)*0.9,
-                    child: buildSheet(context)),
-              );
-            }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
-          ],
-        ),
-      ) ,
     );
   }
 

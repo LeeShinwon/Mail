@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../modalButton_widget.dart';
+import '../../util/size.dart';
 import 'mail_list.dart';
 
 
@@ -51,7 +53,22 @@ class _MailScreenState extends State<MailScreen> {
 
             }, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
             Spacer(),
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
+            IconButton(onPressed: (){
+              showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                //enableDrag: false,
+                //isDismissible: false,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10),
+                  ),
+                ),
+                context: context,
+                builder: (context) => Container(
+                    height: getScreenHeight(context)*0.9,
+                    child: buildSheet(context)),
+              );
+            }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
           ],
         ),
       ) ,
