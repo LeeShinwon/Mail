@@ -17,7 +17,6 @@ late DateTime _dateTime;
 class MailModal extends StatelessWidget {
   const MailModal({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -25,32 +24,16 @@ class MailModal extends StatelessWidget {
         Row(
           children: [
             TextButton(
-              child: Text("취소", style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 15,
-              ),
-              ),
-              onPressed: (){
-                if(_formKey.currentState!.validate()){
-                  _formKey.currentState!.save();
-
-                  CollectionReference mail = FirebaseFirestore.instance.collection('mail');
-                  _dateTime = DateTime.now();
-
-                  mail.add({
-                    //Mail(
-                    'writer': _writer,
-                    'recipient': _recipient,
-                    'title': _title,
-                    'content': _content,
-                    'read': (_writer == _recipient) ? true: false,
-                    'sent': false,
-                    'time': _dateTime.toLocal(),
-                  });
-                  Get.back();//Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
-                }
-              },
-            ),
+                child: Text(
+                  "취소",
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 15,
+                  ),
+                ),
+                onPressed: () {
+                  Get.back(); //Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                }),
           ],
         ),
         Padding(
@@ -72,10 +55,11 @@ class MailModal extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () {
-                  if(_formKey.currentState!.validate()){
+                  if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
 
-                    CollectionReference mail = FirebaseFirestore.instance.collection('mail');
+                    CollectionReference mail =
+                        FirebaseFirestore.instance.collection('mail');
                     _dateTime = DateTime.now();
 
                     mail.add({
@@ -84,7 +68,7 @@ class MailModal extends StatelessWidget {
                       'recipient': _recipient,
                       'title': _title,
                       'content': _content,
-                      'read': (_writer == _recipient) ? true: false,
+                      'read': (_writer == _recipient) ? true : false,
                       'sent': true,
                       'time': _dateTime.toLocal(),
                     });
@@ -101,74 +85,59 @@ class MailModal extends StatelessWidget {
   }
 }
 
-
 Widget WritingForm() => Form(
-  key: _formKey,
-  child: SingleChildScrollView(
-    padding: EdgeInsets.fromLTRB(16, 0,0,0),
-    child: Column(
-      children: <Widget> [
-        InputField("받는 사람: ", 0),
-        InputField("보낸 사람: ", 1),
-        InputField("제목: ", 2),
-        TextFormField(
-      onSaved: (value){
-        _content = value as String;
-      },
-      validator: (value){
-        if( value == null || value!.isEmpty ){
-          return '내용을 입력하세요';
-        }
-        return null;
-      },
-      textCapitalization: TextCapitalization.words,
-      keyboardType: TextInputType.multiline,
-          minLines: 40,
-          maxLines: 100,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: "내용을 입력하세요.",
-          ),
-    ),
-        // SizedBox(height: 16,),
-      ],
-    ),
-  ),
-);
+      key: _formKey,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+        child: Column(
+          children: <Widget>[
+            InputField("받는 사람: ", 0),
+            InputField("보낸 사람: ", 1),
+            InputField("제목: ", 2),
+            InputField("내용을 입력하세요.", 3),
+            // SizedBox(height: 16,),
+          ],
+        ),
+      ),
+    );
 
 Widget InputField(String text, int index) {
   return TextFormField(
     //autovalidateMode: AutovalidateMode.always,
-    onSaved: (value){
-      if(index==0)
+    onSaved: (value) {
+      if (index == 0)
         _recipient = value as String;
-      else if(index==1)
+      else if (index == 1)
         _writer = value as String;
-      else if(index==2)
-        _title = value as String;
+      else if (index == 2) _title = value as String;
+      else
+        _content = value as String;
     },
-    validator: (value){
-      if( value == null || value!.isEmpty ){
-        if(index == 0) {
+    validator: (value) {
+      if (value == null || value!.isEmpty) {
+        if (index == 0) {
           return '수신인 메일을 입력하세요';
-        } else if(index == 2) {
+        } else if (index == 2) {
           return '제목을 입력하세요';
+        } else if (index == 3) {
+          return '내용을 입력하세요';
         }
       }
       return null;
     },
-    readOnly: (index ==1) ? true: false,
+    readOnly: (index == 1) ? true : false,
     initialValue: (index == 1)? FirebaseAuth.instance.currentUser!.email : null,
-    keyboardType: TextInputType.text,
+    keyboardType: (index == 3) ? TextInputType.multiline : TextInputType.text,
+    minLines: (index == 3) ? 40 : null,
+    maxLines: (index == 3) ? 100 : null,
     textInputAction: TextInputAction.next,
     autofocus: true,
     decoration: InputDecoration(
-      labelText: text,
+      hintText: text,
       labelStyle: TextStyle(
         fontSize: 12,
       ),
       //prefix: Text(text),
     ),
-
   );
 }

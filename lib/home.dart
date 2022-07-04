@@ -152,7 +152,8 @@ class HomePage extends StatelessWidget {
             children: [
               Spacer(),
               IconButton(
-                  onPressed: () => showModalBottomSheet(
+                  onPressed: () =>
+                      showModalBottomSheet(
                     //enableDrag: false, isDismissible: false,
                     isScrollControlled: true,
                     shape: RoundedRectangleBorder(
