@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
 
-import 'modalButton_widget.dart';
+import 'sendMail_modal_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../modalButton_widget.dart';
+import '../../sendMail_modal_widget.dart';
 import '../../util/size.dart';
 import 'mail_list.dart';
 
@@ -24,27 +24,22 @@ class _MailScreenState extends State<MailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context,innerBoxIsScrolled) => [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: Text(widget.title.toString(),
-                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),
-            floating: true,
-            snap: true,
-            forceElevated: innerBoxIsScrolled,
-            centerTitle: true,
-            pinned: true,
-          ),
-        ],
-        body: Container(
-            child: Column(
-              children: [
-                Expanded(child: MailList(widget.title),),
-              ],
-            )
+      appBar: AppBar(
+        title: Text(widget.title.toString(),
+            style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Colors.black,//색변경
+          size: 15,
         ),
+
+      ),
+      body: Container(
+          child: Column(
+            children: [
+              Expanded(child: MailList(widget.title),),
+            ],
+          )
       ),
       bottomNavigationBar:BottomAppBar(
         child: Row(
