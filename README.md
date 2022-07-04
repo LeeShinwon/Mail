@@ -2,9 +2,8 @@
 
 아이폰 기본 어플인 Mail을 따라 만든 프로젝트입니다.
 
-<img src="https://user-images.githubusercontent.com/83738381/177155571-906bc106-bdad-4f06-8219-9e07e99c747c.png" width="35%"/>
-<img src="https://user-images.githubusercontent.com/83738381/177166285-0cfd3a4b-9d2b-4789-b11d-3b76ebe13c95.png" width="35%"/>
-          
+![Mail_(iOS)](https://user-images.githubusercontent.com/82192923/177172499-5112cfd0-d1e0-4729-a9d6-1f0e27c7fdf7.png)
+        
 ### 기술 스택<br>
 <img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=Android&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=Flutter&logoColor=white"/></a>
