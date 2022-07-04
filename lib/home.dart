@@ -1,16 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:mail/util/size.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:mail/mail/mail_content/show_mail.dart';
 
 import 'custom_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
-
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,15 +32,20 @@ class HomePage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButton(onPressed: (){
-                                FirebaseAuth.instance.signOut();
-                              }, icon: Icon(CupertinoIcons.square_arrow_left ,size:20, color: Colors.blueAccent,)),
+                              IconButton(
+                                  onPressed: () {
+                                    FirebaseAuth.instance.signOut();
+                                  },
+                                  icon: Icon(
+                                    CupertinoIcons.square_arrow_left,
+                                    size: 20,
+                                    color: Colors.blueAccent,
+                                  )),
                               Text(
                                 "편집",
                                 style: TextStyle(
                                   color: Colors.blueAccent,
                                   fontSize: 15,
-
                                 ),
                               ),
                             ],
@@ -70,10 +72,10 @@ class HomePage extends StatelessWidget {
                               color: Colors.white,
                               child: Column(
                                 children: [
-                                  _mainButton(CupertinoIcons.tray , "받은 편지함"),
-                                  Divider(indent: 50,color:Colors.grey),
+                                  _mainButton(CupertinoIcons.tray, "받은 편지함"),
+                                  Divider(indent: 50, color: Colors.grey),
                                   _mainButton(CupertinoIcons.star, "VIP"),
-                                  Divider(indent: 50,color:Colors.grey),
+                                  Divider(indent: 50, color: Colors.grey),
                                   _mainButton(CupertinoIcons.flag, "깃발 표시됨"),
                                 ],
                               ),
@@ -105,16 +107,21 @@ class HomePage extends StatelessWidget {
                               child: Column(
                                 children: [
                                   _mainButton(CupertinoIcons.doc, "임시 저장"),
-                                  Divider(indent: 50,color:Colors.grey),
-                                  _mainButton(CupertinoIcons.paperplane, "보낸 편지함"),
-                                  Divider(indent: 50,color:Colors.grey),
+                                  Divider(indent: 50, color: Colors.grey),
+                                  _mainButton(
+                                      CupertinoIcons.paperplane, "보낸 편지함"),
+                                  Divider(indent: 50, color: Colors.grey),
                                   _mainButton(CupertinoIcons.bin_xmark, "정크"),
-                                  Divider(indent: 50,color:Colors.grey),
+                                  Divider(indent: 50, color: Colors.grey),
                                   _mainButton(CupertinoIcons.delete, "휴지통"),
-                                  Divider(indent: 50,color:Colors.grey),
-                                  _mainButton(CupertinoIcons.archivebox, "모든 메일"),
-                                  Divider(indent: 50,color:Colors.grey),
-                                  _mainButton(CupertinoIcons.folder, "별표 편지함",)
+                                  Divider(indent: 50, color: Colors.grey),
+                                  _mainButton(
+                                      CupertinoIcons.archivebox, "모든 메일"),
+                                  Divider(indent: 50, color: Colors.grey),
+                                  _mainButton(
+                                    CupertinoIcons.folder,
+                                    "별표 편지함",
+                                  )
                                 ],
                               ),
                             ),
@@ -123,34 +130,6 @@ class HomePage extends StatelessWidget {
                           //   "${snapshot.data.displayName}님 환영합니다.",
                           //   style: TextStyle(fontSize: 20),
                           // )
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(icon: Icon(
-                                  CupertinoIcons.pencil_outline,
-                                  size: 30,
-                                  color: Colors.blueAccent,
-                                ),
-                                onPressed: ()=>showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-                                  //enableDrag: false,
-                                  //isDismissible: false,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (context) => Container(
-                                    height: getScreenHeight(context)*0.9,
-                                      child: buildSheet(context)),
-                                ),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -159,14 +138,37 @@ class HomePage extends StatelessWidget {
               }
             }),
       ),
-      bottomNavigationBar:BottomAppBar(
-        child: Row(
-          children: [
-            Spacer(),
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
-          ],
+      bottomNavigationBar: BottomAppBar(
+        color: Color(0xFFF2F2F6),
+        elevation: 0.0,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0,0,12,12),
+          child: Row(
+            children: [
+              Spacer(),
+              IconButton(
+                  onPressed: () => showModalBottomSheet(
+                    //enableDrag: false, isDismissible: false,
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => Container(
+                        height: getScreenHeight(context) * 0.9,
+                        child: buildSheet(context)),
+                  ),
+                  icon: Icon(
+                    CupertinoIcons.pencil_outline,
+                    color: Colors.blueAccent,
+                    size: 30,
+                  )),
+            ],
+          ),
         ),
-      ) ,
+      ),
     );
   }
 
@@ -194,12 +196,16 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Icon(CupertinoIcons.chevron_right, size:15, color: Colors.grey,),
+              Icon(
+                CupertinoIcons.chevron_right,
+                size: 15,
+                color: Colors.grey,
+              ),
             ],
           ),
         ]),
       ),
-      onTap: (){
+      onTap: () {
         Get.to(MailScreen(title));
       },
     );
