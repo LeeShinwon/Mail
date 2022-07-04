@@ -5,6 +5,11 @@
 <img src="https://user-images.githubusercontent.com/83738381/177155571-906bc106-bdad-4f06-8219-9e07e99c747c.png" width="35%"/>
 <img src="https://user-images.githubusercontent.com/83738381/177166285-0cfd3a4b-9d2b-4789-b11d-3b76ebe13c95.png" width="35%"/>
           
+### 기술 스택<br>
+<img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=Android&logoColor=white"/></a> 
+<img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=Flutter&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=Dart&logoColor=white"/></a> 
+<img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white"/></a> 
 
 ### 주요 구현점
 
