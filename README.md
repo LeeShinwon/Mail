@@ -1,6 +1,6 @@
 # mail
 
-아이폰 기본어플인 Mail을 따라 만든 프로젝트입니다.
+아이폰 기본 어플인 Mail을 따라 만든 프로젝트입니다.
 
 <img src="https://user-images.githubusercontent.com/83738381/177155571-906bc106-bdad-4f06-8219-9e07e99c747c.png" width="35%"/>
 <img src="https://user-images.githubusercontent.com/83738381/177166285-0cfd3a4b-9d2b-4789-b11d-3b76ebe13c95.png" width="35%"/>
@@ -40,5 +40,5 @@
 (If there is any question or opinion, contact us through bottom mail.)
 
 [Contributor]     
-이신원 :      
+이신원 : 22000539@handong.ac.kr    
 서예경 : seeker0503@handong.ac.kr
