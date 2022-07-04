@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
+import '../mail.dart';
+import '../sendMail_modal.dart';
+import '../../util/size.dart';
 import 'mail_list.dart';
 
 
@@ -22,36 +23,45 @@ class _MailScreenState extends State<MailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context,innerBoxIsScrolled) => [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: Text(widget.title.toString(),
-                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),
-            floating: true,
-            snap: true,
-            forceElevated: innerBoxIsScrolled,
-            centerTitle: true,
-            pinned: true,
-          ),
-        ],
-        body: Container(
-            child: Column(
-              children: [
-                Expanded(child: MailList(widget.title),),
-              ],
-            )
+      appBar: AppBar(
+        title: Text(widget.title.toString(),
+            style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme: IconThemeData(
+          color: Colors.black,//색변경
+          size: 15,
         ),
+
+      ),
+      body: Container(
+          child: Column(
+            children: [
+              Expanded(child: MailList(widget.title),),
+            ],
+          )
       ),
       bottomNavigationBar:BottomAppBar(
         child: Row(
           children: [
             IconButton(onPressed: (){
-              Get.to(MailList(widget.title! + " 읽지 않음"));
+
             }, icon: Icon(CupertinoIcons.equal_circle, color: Colors.blueAccent,)),
             Spacer(),
-            IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
+            IconButton(onPressed: (){
+              showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10),
+                  ),
+                ),
+                context: context,
+                builder: (context) => Container(
+                    height: getScreenHeight(context)*0.9,
+                    child: MailModal(),
+              ),
+              );
+            }, icon: Icon(CupertinoIcons.pencil_outline, color: Colors.blueAccent,)),
           ],
         ),
       ) ,

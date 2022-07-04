@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:mail/util/size.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -9,8 +10,11 @@ import 'custom_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
 
+
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +50,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(
                                   color: Colors.blueAccent,
                                   fontSize: 15,
+
                                 ),
                               ),
                             ],

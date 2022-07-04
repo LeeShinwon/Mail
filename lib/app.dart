@@ -18,7 +18,7 @@ class MailApp extends StatelessWidget {
           );
         }
         if(snapshot.connectionState == ConnectionState.done){
-          return const HomePage();
+          return HomePage();
         }
         return const CircularProgressIndicator();
       },
