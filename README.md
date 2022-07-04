@@ -34,6 +34,6 @@
 궁금하시거나 건의사항이 있으시면 아래 메일로 연락 주세요. :)
 (If there is any question or opinion, contact us through bottom mail.)
 
-[Contributor]
-이신원 : 
+[Contributor]     
+이신원 :      
 서예경 : seeker0503@handong.ac.kr
