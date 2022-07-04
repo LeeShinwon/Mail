@@ -6,9 +6,9 @@ import 'package:mail/util/size.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import 'custom_widget.dart';
 import 'login.dart';
 import 'mail/mail_list/mail_screen.dart';
+import 'mail/sendMail_modal.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
                     context: context,
                     builder: (context) => Container(
                         height: getScreenHeight(context) * 0.9,
-                        child: buildSheet(context)),
+                        child: MailModal()),
                   ),
                   icon: Icon(
                     CupertinoIcons.pencil_outline,
