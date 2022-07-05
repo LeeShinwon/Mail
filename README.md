@@ -6,7 +6,7 @@
 ---     
      
 > main.dart
-  firebase 사용을 위한 기초 작업. (하나의 예시일 뿐. 다른 방식으로도 충분히 코딩 가능)
+  firebase 사용을 위한 기초 작업.
   ```dart
      void main() async {
           runApp(const MyApp());
@@ -22,7 +22,8 @@
      }
   ```  
        
-  위의 코드를 아래와 같이 변경한다. main(){}에 firebase를 initialize하는 코드를 추가하고, HomePage()로 연결되던 home 부분을 MailApp()으로 변경한다.     
+  위의 코드를 아래와 같이 변경한다.     
+  main(){}에 firebase를 initialize하는 코드를 추가하고, HomePage()로 연결되던 home 부분을 MailApp()으로 변경한다.     
        
   ```dart
   void main() async {
@@ -49,24 +50,46 @@
 
 ---     
 
-> home.dart (홈 화면 UI 제작)
-  <img src="https://user-images.githubusercontent.com/83738381/177174231-e84bbfe6-fdc1-4020-b382-712f6980215a.png" width="35%"/>     
-  
-  위와 같이 구성하기 위해 우선 stle(stateless)로 class 하나 생성하고, Scaffold로 리턴합니다.
+> app.dart
+  firebase 사용을 위한 기초 작업. (하나의 예시일 뿐. 다른 방식으로도 충분히 코딩 가능)     
+  app.dart 파일을 새로 만든 후 아래 코드를 작성합니다.     
   ```dart
-     class HomePage extends StatelessWidget {
-       HomePage({Key? key}) : super(key: key);
+     import 'package:flutter/cupertino.dart';
+     import 'package:flutter/material.dart';
+     import 'package:firebase_core/firebase_core.dart';
 
+     import 'home.dart';
+
+     class MailApp extends StatelessWidget {
+       const MailApp({Key? key}) : super(key: key);
 
        @override
        Widget build(BuildContext context) {
-         return Scaffold(
-           backgroundColor: Color(0xFFF2F2F6),
-           body: Container(),
+         return FutureBuilder(
+           future: Firebase.initializeApp(),
+           builder: (context, snapshot) {
+             if(snapshot.hasError){
+               return const Center(
+                 child: Text("firebase load failed"),
+               );
+             }
+             if(snapshot.connectionState == ConnectionState.done){
+               return HomePage();
+             }
+             return const CircularProgressIndicator();
+           },
          );
        }
      }
   ```     
+  firebase initialization 하고 에러가 발생하면 에러메시지 보여주고, 연결 중이라면 로딩 표시를 주고, 연결이 완료되었다면 그제서야 HomePage()로 넘어가도록 하는 코드다.     
+  
+---
+> login.dart
+  firebase에서 제공하는 소셜로그인 기능을 사용하여 다음 화면을 만듦.
+  <img src="https://user-images.githubusercontent.com/83738381/177251070-69a9dfdc-3559-42a8-970e-85ce7ce216b3.png" width="35%"/>     
+  
+
   
   그러고 나서 body 부분에서 Container() 대신에 다음 코드를 넣습니다.     
   ```dart
