@@ -5,7 +5,7 @@
 
 ---     
      
-> main.dart
+> **main.dart**     
   firebase 사용을 위한 기초 작업.
   ```dart
      void main() async {
@@ -22,7 +22,7 @@
      }
   ```  
        
-  위의 코드를 아래와 같이 변경한다.     
+  위 step1의 코드를 아래와 같이 변경한다.     
   main(){}에 firebase를 initialize하는 코드를 추가하고, HomePage()로 연결되던 home 부분을 MailApp()으로 변경한다.     
        
   ```dart
@@ -50,7 +50,7 @@
 
 ---     
 
-> app.dart
+> **app.dart**     
   firebase 사용을 위한 기초 작업. (하나의 예시일 뿐. 다른 방식으로도 충분히 코딩 가능)     
   app.dart 파일을 새로 만든 후 아래 코드를 작성합니다.     
   ```dart
