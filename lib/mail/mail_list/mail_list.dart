@@ -58,7 +58,29 @@ class _MailListState extends State<MailList> {
 
               //Mail 생성자를 이용해 데이터를 담은 객체를 만들고 list에 추가 시켜준다.
               Mail mail = Mail(one.id,one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, one.get('read'), one.get('sent'));
-              mailDocs.add(mail);
+
+              if (widget.title == "보낸 편지함") {
+                if (one.get('writer') == user!.email) {
+                  //trick: 내가 보낸 편지는 내가 열어볼때 read 값이 false이어도 이미 읽은 것으로 보여주기 위한 -> 생성자에 값을 다르게 넣어줌
+                  Mail mymail = Mail(one.id,one.get('title'), one.get('content'), one.get('writer'), one.get('recipient'), time, true, one.get('sent'));
+                  mailDocs.add(mymail);
+                }
+              }
+              else if (widget.title == "받은 편지함") {
+                if (one.get('recipient') == user!.email) {
+                  mailDocs.add(mail);
+                }
+              }
+              else if (widget.title == "임시 저장") {
+                if (one.get('writer') == user!.email &&
+                    one.get('sent') == false) {
+                  mailDocs.add(mail);
+                }
+              }
+              else if (widget.title == "모든 메일") {
+                mailDocs.add(mail);
+              }
+              else {}
 
             }
           }
