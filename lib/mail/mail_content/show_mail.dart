@@ -17,7 +17,6 @@ class ShowMail extends StatelessWidget {
           color: Colors.black,//색변경
           size: 15,
         ),
-
       ),
 
       body: ListView(
@@ -27,41 +26,52 @@ class ShowMail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: [
-                  Icon(CupertinoIcons.circle_fill, size: 40,color: Colors.grey,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(CupertinoIcons.circle_fill, size: 40,color: Colors.grey,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(mailDoc!.writer,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                            ),),
-                          Text(mailDoc!.time+".",style: TextStyle(
-                            color: Colors.grey,
-                          )),
+                          Container(
+                            width:MediaQuery.of(context).size.width - 85,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(mailDoc!.writer,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),),
+                                Text(mailDoc!.time+".",style: TextStyle(
+                                  color: Colors.grey,
+                                )),
+                              ],
+
+                            ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text("받는 사람: ",),
+                              Text(mailDoc!.writer+" ",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),),
+                              Icon(CupertinoIcons.chevron_right , size:12,color: Colors.grey,),
+                            ],
+                          ),
+
                         ],
-
                       ),
-                      Row(
-                        children: [
-                          Text("받는 사람: ",),
-                          Text(mailDoc!.writer+" ",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),),
-                          Icon(CupertinoIcons.chevron_right , size:12,color: Colors.grey,),
-                        ],
-                      ),
-
-                    ],
-                  ),
+                    ),
 
 
-                ],
-              ),
+                  ],
+                ),
+
               Divider(color: Colors.black45,),
 
               Column(
