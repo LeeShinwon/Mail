@@ -11,13 +11,12 @@ class MailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           Divider(indent: 30,color:Colors.grey),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
+          Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 mailDoc!.read == true ? SizedBox(width: 10,)://메일을 읽었으면, 파란 동그라미가 보이지 않고, 읽지 않은 메일은 파란동그라미가 보이게 설정
@@ -37,10 +36,7 @@ class MailCard extends StatelessWidget {
                 Icon(CupertinoIcons.chevron_right , size:15,color: Colors.grey,),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
+            Row(
               children: [
                 SizedBox(width: 20,),
                 Flexible(
@@ -57,10 +53,8 @@ class MailCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Row(
+
+          Row(
               children: [
                 SizedBox(width: 20,),
                 Flexible(
@@ -80,7 +74,6 @@ class MailCard extends StatelessWidget {
 
               ],
             ),
-          ),
         ],
       ),
     );
