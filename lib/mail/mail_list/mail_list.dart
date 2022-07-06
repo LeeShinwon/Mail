@@ -90,9 +90,9 @@ class _MailListState extends State<MailList> {
               return GestureDetector(
                 onTap: () {
                   //받은 사람이 메일을 읽으려고 onTap을 하면 파이어베이스의 mail - read 부분을 true로 update 해주어야 함
-                  if(mailDocs[index].recipient == user?.email){
+                  /*if(mailDocs[index].recipient == user?.email){
                     FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':true});
-                  }
+                  }*/
                   widget.title == "임시 저장" ?
                   showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
                       isScrollControlled: true,
