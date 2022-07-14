@@ -1,10 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  CollectionReference database = FirebaseFirestore.instance.collection('user');
+  late QuerySnapshot querySnapshot;
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -36,7 +46,34 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70),
               child: OutlinedButton(
-                onPressed: signInWithGoogle,
+                onPressed: () async {
+                  final UserCredential userCredential = await signInWithGoogle();
+
+                  User? user = userCredential.user;
+
+                  if (user != null) {
+                    int i;
+                    querySnapshot = await database.get();
+
+                    for (i = 0; i < querySnapshot.docs.length; i++) {
+                      var a = querySnapshot.docs[i];
+
+                      if (a.get('uid') == user.uid) {
+                        break;
+                      }
+                    }
+
+                    if (i == (querySnapshot.docs.length)) {
+                      database.doc(user.uid).set({
+                        'email': user.email.toString(),
+                        'name': user.displayName.toString(),
+                        'uid': user.uid,
+                      });
+                    }
+                    if (user != null)
+                      Get.to(Login());
+                  }
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -62,4 +99,3 @@ class Login extends StatelessWidget {
     );
   }
 }
-
