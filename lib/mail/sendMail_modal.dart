@@ -34,7 +34,44 @@ class MailModal extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Get.back(); //Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                  showCupertinoDialog(context: context, builder: (context){
+                    return CupertinoAlertDialog(
+                      title: Text('취소'),
+                      content: Text('취소를 누르시면, 모든 기록이 사라집니다. 취소를 누르시겠습니까?'),
+                      actions: [
+                        CupertinoDialogAction(
+                            child: Text('취소'),
+                          onPressed: (){
+                            Get.back();//Navigator.of(context).pop() 와 같은 역할. Getx로 구현함.
+                            Get.back();
+                          },
+                        ),
+                        CupertinoDialogAction(
+                          child: Text('임시 저장'),
+                          onPressed: (){
+                            CollectionReference mail =
+                            FirebaseFirestore.instance.collection('mail');
+                            _dateTime = DateTime.now();
+
+                            mail.add({
+                              //Mail(
+                              'writer': _writer,
+                              'recipient': _recipient,
+                              'title': _title,
+                              'content': _content,
+                              'read': (_writer == _recipient) ? true : false,
+                              'sent': false,
+                              'time': _dateTime.toLocal(),
+                            });
+                            Get.back();
+                            Get.back();
+                          },
+                        ),
+
+                      ],
+                    );
+                  });
+
                 }),
           ],
         ),
@@ -76,7 +113,7 @@ class MailModal extends StatelessWidget {
                     });
 
                     final player = AudioPlayer();
-                    player.play(UrlSource('assets/sound/airplane.mp3'));
+                    player.play(UrlSource('https://t1.daumcdn.net/cfile/tistory/99ED974F5CF009522F?original'));
                     Get.back();
                   }
                 },
