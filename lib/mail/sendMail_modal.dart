@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +16,8 @@ late DateTime _dateTime;
 //참조1 : https://www.youtube.com/watch?v=AjAQglJKcb4
 //참조2 : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
 class MailModal extends StatelessWidget {
-  const MailModal({Key? key}) : super(key: key);
+  MailModal({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,9 @@ class MailModal extends StatelessWidget {
                       'sent': true,
                       'time': _dateTime.toLocal(),
                     });
+
+                    final player = AudioPlayer();
+                    player.play(UrlSource('assets/sound/airplane.mp3'));
                     Get.back();
                   }
                 },

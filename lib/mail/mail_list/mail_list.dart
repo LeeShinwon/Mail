@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:mail/mail/mail_content/show_mail.dart';
@@ -30,7 +31,7 @@ class _MailListState extends State<MailList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('mail').snapshots(),
+      stream: FirebaseFirestore.instance.collection('mail').orderBy('time', descending: true).snapshots(),
       builder: (BuildContext context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -87,29 +88,71 @@ class _MailListState extends State<MailList> {
         return ListView.builder(
             itemCount: mailDocs.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  //받은 사람이 메일을 읽으려고 onTap을 하면 파이어베이스의 mail - read 부분을 true로 update 해주어야 함
-                  if(mailDocs[index].recipient == user?.email){
-                    FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':true});
-                  }
-                  widget.title == "임시 저장" ?
-                  showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10),
+              return Slidable(
+                //key: const ValueKey(0),
+                //left, top
+                startActionPane: widget.title == '받은 편지함' ?
+                ActionPane(
+                  motion: const ScrollMotion(),
+
+                  //dismissible: DismissiblePane(onDismissed: (){},),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context){
+                        FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':false});
+                      },
+                      backgroundColor: Colors.blueAccent,
+                      foregroundColor: Colors.white,
+                      icon: CupertinoIcons.envelope_badge_fill,
+                      label:'읽지 않음',
+
+
+                    )
+                  ],
+
+                ): null,
+
+                //right, bottom
+                endActionPane: ActionPane(
+                  motion: ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                        onPressed: (context){
+                          //삭제의 경우 파이어베이스 설계를 잘못함. user에게만 없어져야 하는데 보낸이와 받은이 모두 없어지기 때문
+                          FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).delete();
+                        },
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: CupertinoIcons.delete,
+                      label:'휴지통',
+                    )
+                  ],
+                ),
+
+                child: GestureDetector(
+                  onTap: () {
+                    //받은 사람이 메일을 읽으려고 onTap을 하면 파이어베이스의 mail - read 부분을 true로 update 해주어야 함
+                    if(mailDocs[index].recipient == user?.email){
+                      FirebaseFirestore.instance.collection('mail').doc(mailDocs[index].mail_id).update({'read':true});
+                    }
+                    widget.title == "임시 저장" ?
+                    showModalBottomSheet( //reference : https://api.flutter.dev/flutter/material/showModalBottomSheet.html
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
                       ),
-                    ),
-                    context: context,
-                    builder: (context) => Container(
-                        height: getScreenHeight(context)*0.9,
-                        child: ShowTemporaryStorage(mailDocs[index]),
-                  )
-                  ) :
-                  Get.to(ShowMail(mailDocs[index]));
-                },
-                child: MailCard(mailDocs[index]),
+                      context: context,
+                      builder: (context) => Container(
+                          height: getScreenHeight(context)*0.9,
+                          child: ShowTemporaryStorage(mailDocs[index]),
+                    )
+                    ) :
+                    Get.to(ShowMail(mailDocs[index]));
+                  },
+                  child: MailCard(mailDocs[index]),
+                ),
               );
             }
         );
